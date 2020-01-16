@@ -202,6 +202,17 @@ steps:
 - name: gcr.io/cloud-builders/docker
   args: ['tag', 'bazel/experimental/dotnet:debug', 'gcr.io/$PROJECT_ID/dotnet:debug']
 
+- name: gcr.io/cloud-builders/bazel
+  args: ['run', '--host_force_python=PY2', '//experimenta/quarkus-native:quarkus-native_debian9']
+- name: gcr.io/cloud-builders/docker
+  args: ['tag', 'bazel/quarkus-native:quarkus-native_debian9', 'gcr.io/$PROJECT_ID/quarkus-native-debian9:${COMMIT_SHA}']
+- name: gcr.io/cloud-builders/docker
+  args: ['tag', 'gcr.io/$PROJECT_ID/quarkus-native-debian9:${COMMIT_SHA}', 'gcr.io/$PROJECT_ID/quarkus-native:${COMMIT_SHA}']
+- name: gcr.io/cloud-builders/bazel
+  args: ['run', '--host_force_python=PY2', '//quarkus-native:quarkus-native_debian10']
+- name: gcr.io/cloud-builders/docker
+  args: ['tag', 'bazel/quarkus-native:quarkus-native_debian10', 'gcr.io/$PROJECT_ID/quarkus-native-debian10:${COMMIT_SHA}']
+
 
 images:
   - 'gcr.io/$PROJECT_ID/static-debian9:${COMMIT_SHA}'
@@ -256,3 +267,9 @@ images:
   - 'gcr.io/$PROJECT_ID/nodejs:debug'
   - 'gcr.io/$PROJECT_ID/dotnet:latest'
   - 'gcr.io/$PROJECT_ID/dotnet:debug'
+  - 'gcr.io/$PROJECT_ID/quarkus-native-debian9:${COMMIT_SHA}'
+  - 'gcr.io/$PROJECT_ID/quarkus-native:${COMMIT_SHA}'
+  - 'gcr.io/$PROJECT_ID/quarkus-native-debian10:${COMMIT_SHA}'
+  - 'gcr.io/$PROJECT_ID/quarkus-native-debian9:debug'
+  - 'gcr.io/$PROJECT_ID/quarkus-native:debug'
+  - 'gcr.io/$PROJECT_ID/quarkus-native-debian10:debug'

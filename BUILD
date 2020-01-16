@@ -69,6 +69,12 @@ container_bundle(
         "gcr.io/{PROJECT_ID}/nodejs:debug": "//experimental/nodejs:debug",
         "gcr.io/{PROJECT_ID}/dotnet:latest": "//experimental/dotnet",
         "gcr.io/{PROJECT_ID}/dotnet:debug": "//experimental/dotnet:debug",
+        "gcr.io/{PROJECT_ID}/quarkus-native:latest": "//experimental/quarkus-native:quarkus-native_debian9",
+        "gcr.io/{PROJECT_ID}/quarkus-native:debug": "//experimental/quarkus-native:debug_debian9",
+        "gcr.io/{PROJECT_ID}/quarkus-native-debian9:latest": "//experimental/quarkus-native:quarkus-native_debian9",
+        "gcr.io/{PROJECT_ID}/quarkus-native-debian9:debug": "//experimental/quarkus-native:debug_debian9",
+        "gcr.io/{PROJECT_ID}/quarkus-native-debian10:latest": "//experimental/quarkus-native:quarkus-native_debian10",
+        "gcr.io/{PROJECT_ID}/quarkus-native-debian10:debug": "//experimental/quarkus-native:debug_debian10",
     },
 )
 
