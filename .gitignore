@@ -14,3 +14,5 @@
 /bazel-*
 # Ignore outputs generated during Bazel bootstrapping.
 /output/
+# Because we pre-process it, we no longer want WORKSPACE
+/WORKSPACE
