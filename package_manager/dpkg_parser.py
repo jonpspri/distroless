@@ -101,7 +101,7 @@ def download_dpkg(package_files, packages, workspace_name):
             (pkg_version == "" or
             pkg_version == metadata[pkg_name][VERSION_KEY])):
                 pkg = metadata[pkg_name]
-                buf = urllib.request.urlopen(pkg[FILENAME_KEY])
+                buf = urllib.request.urlopen(pkg[FILENAME_KEY], timeout=1800)
                 package_to_rule_map[pkg_name] = util.package_to_rule(workspace_name, pkg_name)
                 package_to_version_map[pkg_name] = metadata[pkg_name][VERSION_KEY]
                 out_file = os.path.join("file", util.encode_package_name(pkg_name))

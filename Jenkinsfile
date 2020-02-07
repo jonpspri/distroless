@@ -17,12 +17,11 @@ def build_shell='''
 registry=${OPENWHISK_TARGET_REGISTRY:-docker.io}
 prefix=${OPENWHISK_TARGET_PREFIX:-s390xopenwhisk}
 arch=$(uname -m)
-image=${image:-base:static_debian9}
 
 ./workspace.sh
-bazel run --host_force_python=PY2 //${image}
-docker tag "bazel/${image}" \
-  ${registry}/${prefix}/${image}-${arch}
+bazel run --host_force_python=PY2 //${IMAGE}
+docker tag "bazel/${IMAGE}" \
+  ${registry}/${prefix}/${IMAGE}-${arch}
 '''
 
 def manifest_shell='''
@@ -53,18 +52,25 @@ docker manifest push ${registry}/${prefix}/$i
 pipeline {
   agent none
   stages {
-    stage('Build') {
+    stage('Build (Outer)') {
       matrix {
         axes {
             axis {
                 name 'ARCH'
                 values 'x86_64','s390x','aarch64','ppc64le'
             }
+            axis {
+                name 'TARGET'
+                values 'base:static_debian9'
+            }
         }
         stages {
             stage("Build") {
                 agent {
                     label "docker-${ARCH}"
+                }
+                environment {
+                  IMAGE = "${TARGET}"
                 }
                 steps {
                     sh build_shell
