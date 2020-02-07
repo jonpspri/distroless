@@ -54,38 +54,22 @@ pipeline {
   agent none
   stages {
     stage('Build') {
-      parallel {
-        stage("Build-x86_64") {
-          agent {
-            label "docker-x86_64"
-          }
-          steps {
-            sh build_shell
-          }
+      matrix {
+        axes {
+            axis {
+                name 'ARCH'
+                values 'x86_64','s390x','aarch64','ppc64le'
+            }
         }
-        stage("Build-s390x") {
-          agent {
-            label "docker-s390x"
-          }
-          steps {
-            sh build_shell
-          }
-        }
-        stage("Build-aarch64") {
-          agent {
-            label "docker-aarch64"
-          }
-          steps {
-            sh build_shell
-          }
-        }
-        stage("Build-ppc64le") {
-          agent {
-            label "docker-ppc64le"
-          }
-          steps {
-            sh build_shell
-          }
+        stages {
+            stage("Build") {
+                agent {
+                    label "docker-${ARCH}"
+                }
+                steps {
+                    sh build_shell
+                }
+            }
         }
       }
     }
