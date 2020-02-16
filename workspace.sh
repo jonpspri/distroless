@@ -1,6 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-case $(uname -m) in
+if [ "$(getopt -T)" == " --" ]; then
+  echo "Not using the appropriate getopt.  Please obtain 'GNU getout'"; exit 255
+fi
+eval set -- "$(getopt -oa: --longoptions arch: -n 'getopt' -- "$@")"
+
+while true; do
+  case "$1" in
+    -a | --arch) arch="$2"; shift; shift;;
+    -- ) shift; break;;
+    * ) break;;
+  esac
+done
+
+[ -n "$arch" ] || arch="$(uname -m)"
+case "$arch" in
   x86_64)
     arch=amd64
     debian_stretch_sha256=2b13362808b7bd90d24db2e0804c799288694ae44bd7e3d123becc191451fc67
