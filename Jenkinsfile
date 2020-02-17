@@ -32,17 +32,19 @@ pipeline {
       matrix {
         axes {
             axis {
-                name 'IMAGE'
-                values 'base', 'static'
+                name 'BAZEL_TARGET'
+                values 'base:base', 'base:static'
             }
             axis {
-                name 'DEBIAN'
+                name 'DEBIAN_RELEASE'
                 values 'debian9', 'debian10'
             }
         }
         stages {
             stage("Build") {
-                environment { TARGET = "${IMAGE}_${DEBIAN}" }
+                environment { 
+                  TARGET = "${BAZEL_TARGET}_${DEBIAN_RELEASE}" 
+                }
                 steps { sh build_shell }
             }
         }
