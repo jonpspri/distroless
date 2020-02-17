@@ -1,20 +1,41 @@
 # defines a function to replicate the container images for different distributions
 load("@io_bazel_rules_docker//container:container.bzl", "container_image")
 load("@io_bazel_rules_docker//contrib:test.bzl", "container_test")
-load("@package_bundle//file:packages.bzl", "packages")
-load("@package_bundle_debian10//file:packages.bzl", packages_debian10 = "packages")
+
+load("@package_bundle_amd64//file:packages.bzl", packages_amd64 = "packages")
+load("@package_bundle_arm64//file:packages.bzl", packages_arm64 = "packages")
+load("@package_bundle_ppc64el//file:packages.bzl", packages_ppc64el = "packages")
+load("@package_bundle_s390x//file:packages.bzl", packages_s390x = "packages")
+
+load("@package_bundle_debian10_amd64//file:packages.bzl", packages_debian10_amd64 = "packages")
+load("@package_bundle_debian10_arm64//file:packages.bzl", packages_debian10_arm64 = "packages")
+load("@package_bundle_debian10_ppc64el//file:packages.bzl", packages_debian10_ppc64el = "packages")
+load("@package_bundle_debian10_s390x//file:packages.bzl", packages_debian10_s390x = "packages")
+
 load("//cacerts:cacerts.bzl", "cacerts")
 
 NONROOT = 65532
 
 DISTRO_PACKAGES = {
-    "_debian9": packages,
-    "_debian10": packages_debian10,
+    "_debian9_amd64": packages_amd64,
+    "_debian9_arm64v8": packages_arm64,
+    "_debian9_ppc64le": packages_ppc64el,
+    "_debian9_s390x": packages_s390x,
+    "_debian10_amd64": packages_debian10_amd64,
+    "_debian10_arm64v8": packages_debian10_arm64,
+    "_debian10_ppc64le": packages_debian10_ppc64el,
+    "_debian10_s390x": packages_debian10_s390x,
 }
 
 DISTRO_REPOSITORY = {
-    "_debian9": "@debian_stretch",
-    "_debian10": "@debian10",
+    "_debian9_amd64": "@debian_stretch_amd64",
+    "_debian9_arm64v8": "@debian_stretch_arm64",
+    "_debian9_ppc64le": "@debian_stretch_ppc64el",
+    "_debian9_s390x": "@debian_stretch_s390x",
+    "_debian10_amd64": "@debian10_amd64",
+    "_debian10_arm64v8": "@debian10_arm64",
+    "_debian10_ppc64le": "@debian10_ppc64el",
+    "_debian10_s390x": "@debian10_s390x",
 }
 
 # Replicate everything for debian9 and debian10

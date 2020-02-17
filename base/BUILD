@@ -100,8 +100,16 @@ pkg_tar(
     package_dir = "etc",
 )
 
-load("@package_bundle//file:packages.bzl", "packages")
-load("@package_bundle_debian10//file:packages.bzl", packages_debian10 = "packages")
+load("@package_bundle_amd64//file:packages.bzl", packages_amd64 = "packages")
+load("@package_bundle_arm64//file:packages.bzl", packages_arm64 = "packages")
+load("@package_bundle_ppc64el//file:packages.bzl", packages_ppc64el = "packages")
+load("@package_bundle_s390x//file:packages.bzl", packages_s390x = "packages")
+
+load("@package_bundle_debian10_amd64//file:packages.bzl", packages_debian10_amd64 = "packages")
+load("@package_bundle_debian10_arm64//file:packages.bzl", packages_debian10_arm64 = "packages")
+load("@package_bundle_debian10_ppc64el//file:packages.bzl", packages_debian10_pcc64el = "packages")
+load("@package_bundle_debian10_s390x//file:packages.bzl", packages_debian10_s390x = "packages")
+
 load("//cacerts:cacerts.bzl", "cacerts")
 
 go_binary(
@@ -111,39 +119,39 @@ go_binary(
     goos = "linux",
     pure = "on",
 )
+arch_list = [ "amd64", "arm64v8", "ppc64le", "s390x" ]
 
 # Replicate the containers and tests for debian9 and debian10
-distro_components("_debian9")
-
-distro_components("_debian10")
+[ distro_components("_debian9_"+ arch) for arch in arch_list ]
+[ distro_components("_debian10_"+ arch) for arch in arch_list ]
 
 # alias debian9 as the default images
 alias(
     name = "static",
-    actual = ":static_debian9",
+    actual = ":static_debian9_amd64",
 )
 
 alias(
     name = "static-nonroot",
-    actual = ":static-nonroot_debian9",
+    actual = ":static-nonroot_debian9_amd64",
 )
 
 alias(
     name = "base",
-    actual = ":base_debian9",
+    actual = ":base_debian9_amd64",
 )
 
 alias(
     name = "base-nonroot",
-    actual = ":base-nonroot_debian9",
+    actual = ":base-nonroot_debian9_amd64",
 )
 
 alias(
     name = "debug",
-    actual = ":debug_debian9",
+    actual = ":debug_debian9_amd64",
 )
 
 alias(
     name = "debug-nonroot",
-    actual = ":debug-nonroot_debian9",
+    actual = ":debug-nonroot_debian9_amd64",
 )
