@@ -18,22 +18,22 @@ NONROOT = 65532
 
 DISTRO_PACKAGES = {
     "_debian9_amd64": packages_amd64,
-    "_debian9_arm64v8": packages_arm64,
+    "_debian9_arm64": packages_arm64,
     "_debian9_ppc64le": packages_ppc64el,
     "_debian9_s390x": packages_s390x,
     "_debian10_amd64": packages_debian10_amd64,
-    "_debian10_arm64v8": packages_debian10_arm64,
+    "_debian10_arm64": packages_debian10_arm64,
     "_debian10_ppc64le": packages_debian10_ppc64el,
     "_debian10_s390x": packages_debian10_s390x,
 }
 
 DISTRO_REPOSITORY = {
     "_debian9_amd64": "@debian_stretch_amd64",
-    "_debian9_arm64v8": "@debian_stretch_arm64",
+    "_debian9_arm64": "@debian_stretch_arm64",
     "_debian9_ppc64le": "@debian_stretch_ppc64el",
     "_debian9_s390x": "@debian_stretch_s390x",
     "_debian10_amd64": "@debian10_amd64",
-    "_debian10_arm64v8": "@debian10_arm64",
+    "_debian10_arm64": "@debian10_arm64",
     "_debian10_ppc64le": "@debian10_ppc64el",
     "_debian10_s390x": "@debian10_s390x",
 }

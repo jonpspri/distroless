@@ -119,7 +119,7 @@ go_binary(
     goos = "linux",
     pure = "on",
 )
-arch_list = [ "amd64", "arm64v8", "ppc64le", "s390x" ]
+arch_list = [ "amd64", "arm64", "ppc64le", "s390x" ]
 
 # Replicate the containers and tests for debian9 and debian10
 [ distro_components("_debian9_"+ arch) for arch in arch_list ]
