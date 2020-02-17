@@ -7,8 +7,8 @@ target=${TARGET:-"base:static_debian9"}
 fq_image=${registry}/${prefix}/${target}
 
 for arch in amd64 arm64v8 ppc64le s390x; do
-  bazel run --output_base="${WORKSPACE}/output_base" \
-    --host_force_python=PY2 "//${target}_${arch}"
+  bazel --output_base="${WORKSPACE}/output_base" \
+    run --host_force_python=PY2 "//${target}_${arch}"
   docker tag bazel/${target}_${arch} ${fq_image}_${arch}
   docker push ${fq_image}_${arch}
 done
