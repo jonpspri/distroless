@@ -18,7 +18,7 @@ done
 cp -R ${HOME}/.docker ${WORKSPACE}/${target}/
 rm -rf ${WORKSPACE}/${TARGET}_${ARCH}/.docker/manifests
 
-docker --config ${WORKSPACE}/${target}/.docker \ 
+docker --config ${WORKSPACE}/${target}/.docker \
   manifest create ${fq_image} \
   ${fq_image}_amd64 \
   ${fq_image}_arm64v8 \
