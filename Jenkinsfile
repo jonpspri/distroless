@@ -1,93 +1,52 @@
-/*
- * This file makes two assumptions about your Jenkins build environment:
- *
- * 1.  You have nodes set up with labels of the form "docker-${ARCH}" to
- *     support the various build architectures (currently 'x86_64',
- *     's390x', 'aarch64' (ARM), and 'ppc64le').
- * 2.  If you do not want to target the 'docker.io/openwhisk' registry
- *     (and unless you're the official maintainer, you shouldn't), then
- *     you've set up an OPENWHISK_TARGET_REGISTRY variable with the target
- *     registry you'll use.
- *
- * TODO: Set up the build architectures as a parameter that will drive
- *       a scripted loop to build stages.
- */
-
 def build_shell='''
 registry=${OPENWHISK_TARGET_REGISTRY:-docker.io}
 prefix=${OPENWHISK_TARGET_PREFIX:-s390xopenwhisk}
-arch=$(uname -m)
+target=${TARGET:-"base:static_debian9"}
+image=${target%%:*}
+base=${target##*:}
 
-./workspace.sh
-bazel run --host_force_python=PY2 //${IMAGE}
-docker tag "bazel/${IMAGE}" \
-  ${registry}/${prefix}/${IMAGE}-${arch}
-'''
+for arch in amd64 arm64v8 ppc64le s390x; do
+  bazel run --host_force_python=PY2 "//${target}_${arch}"
+done
 
-def manifest_shell='''
-registry=${OPENWHISK_TARGET_REGISTRY:-docker.io}
-prefix=${OPENWHISK_TARGET_PREFIX:-openwhisk}
-rm -rf ~/.docker/manifests
-i=${image:-base:static_debian9}
-docker manifest create ${registry}/${prefix}/$i \
-    ${registry}/${prefix}/$i-x86_64 \
-    ${registry}/${prefix}/$i-s390x \
-    ${registry}/${prefix}/$i-aarch64 \
-    ${registry}/${prefix}/$i-ppc64le
-docker manifest annotate --os linux --arch amd64 \
-    ${registry}/${prefix}/$i \
-    ${registry}/${prefix}/$i-x86_64
-docker manifest annotate --os linux --arch s390x \
-    ${registry}/${prefix}/$i \
-    ${registry}/${prefix}/$i-s390x
-docker manifest annotate --os linux --arch arm64 \
-    ${registry}/${prefix}/$i \
-    ${registry}/${prefix}/$i-aarch64
-docker manifest annotate --os linux --arch ppc64le \
-    ${registry}/${prefix}/$i \
-    ${registry}/${prefix}/$i-ppc64le
+rm -rf ~/.docker/manifests  # DANGEROUS
+
+docker manifest create ${registry}/${prefix}/${target} \
+  bazel/${target}_amd64 \
+  bazel/${target}_arm64v8 \
+  bazel/${target}_ppc64le \
+  bazel/${target}_s390x
+
+for arch in amd64 arm64v8 ppc64le s390x; do
+  docker manifest annotate --os linux --arch ${arch} \
+    ${registry}/${prefix}/${target} bazel/${target}_${arch}
+done
+
 docker manifest push ${registry}/${prefix}/$i
 '''
 
 pipeline {
-  agent none
+  agent { label "docker-bazel" }
   stages {
-    stage('Build (Outer)') {
+    stage('Matrix') {
       matrix {
         axes {
             axis {
-                name 'ARCH'
-                values 'x86_64','s390x','aarch64','ppc64le'
+                name 'IMAGE'
+                values 'base', 'static'
             }
             axis {
-                name 'TARGET'
-                values 'base:static_debian9'
+                name 'DEBIAN'
+                values 'debian9', 'debian10'
             }
         }
         stages {
             stage("Build") {
-                agent {
-                    label "docker-${ARCH}"
-                }
-                environment {
-                  IMAGE = "${TARGET}"
-                }
-                steps {
-                    sh build_shell
-                }
+                environment { TARGET = "${IMAGE}_${DEBIAN}" }
+                steps { sh build_shell }
             }
         }
       }
     }
-    /* stage("Manifest") {
-      agent {
-        // Could be anything capable of running 'docker manifest', but right
-        // now only the x86_64 environment is set up for that.
-       label "docker-x86_64"
-      }
-      steps {
-        sh manifest_shell
-      }
-    } */
   }
 }
