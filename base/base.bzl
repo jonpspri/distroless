@@ -81,6 +81,7 @@ def distro_components(distro_suffix):
             DISTRO_PACKAGES[distro_suffix]["libc6"],
             DISTRO_PACKAGES[distro_suffix]["libssl1.1"],
             DISTRO_PACKAGES[distro_suffix]["openssl"],
+            DISTRO_PACKAGES[distro_suffix]["zlib1g"]
         ],
     )
 
