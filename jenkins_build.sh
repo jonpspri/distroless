@@ -6,6 +6,8 @@ registry=${OPENWHISK_TARGET_REGISTRY:-docker.io}
 prefix=${OPENWHISK_TARGET_PREFIX:-s390xopenwhisk}
 name_prefix=${IMAGE_NAME_PREIX:-distroless_}
 
+rm -rf $HOME/.docker/manifests/*
+
 for target in \
     base:base_debian9 base:base_debian10 \
     base:base-nonroot_debian9 base:base-nonroot_debian10 \
@@ -32,5 +34,5 @@ do (
         "${fq_image}" "${fq_image}_${arch}"
     done
 
-    docker manifest push "${fq_image}"
+    docker manifest push --purge "${fq_image}"
 ) done
