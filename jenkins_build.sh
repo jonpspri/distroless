@@ -12,7 +12,8 @@ for target in \
     base:base_debian9 base:base_debian10 \
     base:base-nonroot_debian9 base:base-nonroot_debian10 \
     base:static_debian9 base:static_debian10 \
-    base:static-nonroot_debian9 base:static-nonroot_debian10
+    base:static-nonroot_debian9 base:static-nonroot_debian10 \
+    cc:cc_debian9 cc:cc_debian10
 do (
     # Fully qualified image (to make our script more terse)
     fq_image=${registry}/${prefix}/${name_prefix}${target}
