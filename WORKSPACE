@@ -133,7 +133,7 @@ debian_stretch_adoptopenjdk_sha256 = {
         "adoptopenjdk-8-openj9",
         "adoptopenjdk-8-openj9-jre",
         "adoptopenjdk-11-hotspot",
-        "adoptopenjdk-11-hostpot-jre",
+        "adoptopenjdk-11-hotspot-jre",
         "adoptopenjdk-11-openj9",
         "adoptopenjdk-11-openj9-jre",
 
