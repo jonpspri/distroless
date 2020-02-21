@@ -130,12 +130,8 @@ debian_stretch_adoptopenjdk_sha256 = {
         "openjdk-11-jdk-headless",
         "adoptopenjdk-8-hotspot",
         "adoptopenjdk-8-hotspot-jre",
-        "adoptopenjdk-8-openj9",
-        "adoptopenjdk-8-openj9-jre",
         "adoptopenjdk-11-hotspot",
         "adoptopenjdk-11-hotspot-jre",
-        "adoptopenjdk-11-openj9",
-        "adoptopenjdk-11-openj9-jre",
 
         #python
         "libpython2.7-minimal",
@@ -344,6 +340,10 @@ debian10_sha256 = {
         "libfontconfig1",
         "openjdk-11-jre-headless",
         "openjdk-11-jdk-headless",
+        "adoptopenjdk-8-hotspot",
+        "adoptopenjdk-8-hotspot-jre",
+        "adoptopenjdk-11-hotspot",
+        "adoptopenjdk-11-hotspot-jre",
 
         #python
         "dash",
