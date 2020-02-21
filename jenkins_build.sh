@@ -2,8 +2,8 @@
 
 set -ue
 
-registry=${OPENWHISK_TARGET_REGISTRY:-docker.io}
-prefix=${OPENWHISK_TARGET_PREFIX:-s390xopenwhisk}
+registry=${TARGET_REGISTRY:-docker.io}
+prefix=${TARGET_PREFIX:-springjp}
 name_prefix=${IMAGE_NAME_PREIX:-distroless_}
 
 rm -rf $HOME/.docker/manifests/*
@@ -13,7 +13,8 @@ for target in \
     base:base-nonroot_debian9 base:base-nonroot_debian10 \
     base:static_debian9 base:static_debian10 \
     base:static-nonroot_debian9 base:static-nonroot_debian10 \
-    cc:cc_debian9 cc:cc_debian10
+    cc:cc_debian9 cc:cc_debian10 \
+    java:java8_debian9 java:java11_debian10
 do (
     # Fully qualified image (to make our script more terse)
     fq_image=${registry}/${prefix}/${name_prefix}${target}
