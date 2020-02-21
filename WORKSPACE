@@ -402,7 +402,7 @@ debian10_sha256 = {
     sources = [
         "@debian10_security_"+arch+"//file:Packages.json",
         "@debian10_"+arch+"//file:Packages.json",
-        "@debian10_adoptopenjdk_"+arch"+"//file:Packages.json",
+        "@debian10_adoptopenjdk_"+arch+"//file:Packages.json",
     ],
 ) for arch in arch_list ]
 
