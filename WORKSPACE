@@ -66,9 +66,23 @@ debian_stretch_security_sha256 = {
 
 [ dpkg_src(
     name = "debian_stretch_security_" + arch,
-    package_prefix = "https://snapshot.debian.org/archive/debian-security/20191230T212302Z/",
+    package_prefix  = "https://snapshot.debian.org/archive/debian-security/20191230T212302Z/",
     packages_gz_url = "https://snapshot.debian.org/archive/debian-security/20191230T212302Z/dists/stretch/updates/main/binary-" + arch + "/Packages.gz",
     sha256 = debian_stretch_security_sha256[arch],
+) for arch in arch_list ]
+
+debian_stretch_adoptopenjdk_sha256 = {
+  "amd64": "d4d073d180504e058c00b6d2f236aaad87869faa8e8c75b4bb4b3ba1336e3a0f",
+  "arm64": "afa4ad7a7320ca895c2dddb70f03ac82b92c24c66c7c09e405c1e300eda59349",
+  "ppc64el": "7235e3c1042040bcf5e6e9af310156274d13db80f53bec658087f47ca0c2fe64",
+  "s390x": "5da3eb8eac499ece5e811bdf9387399083dfab4078a415164e43eb881b50eae4",
+}
+
+[ dpkg_src(
+    name = "debian_stretch_adoptopenjdk_" + arch,
+    package_prefix  = "https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/",
+    packages_gz_url = "https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/dists/stretch/main/binary-"+arch+"/Packages.gz",
+    sha256 = debian_stretch_adoptopenjdk_sha256[arch],
 ) for arch in arch_list ]
 
 [ dpkg_list(
@@ -179,6 +193,7 @@ debian_stretch_security_sha256 = {
         "@debian_stretch_security_"+arch+"//file:Packages.json",
         "@debian_stretch_backports_"+arch+"//file:Packages.json",
         "@debian_stretch_"+arch+"//file:Packages.json",
+        "@debian_stretch_adoptopenjdk_"+arch+"//file:Packages.json"
     ],
 ) for arch in arch_list ]
 
@@ -387,6 +402,7 @@ debian10_sha256 = {
     sources = [
         "@debian10_security_"+arch+"//file:Packages.json",
         "@debian10_"+arch+"//file:Packages.json",
+        "@debian10_adoptopenjdk_"+arch"+"//file:Packages.json",
     ],
 ) for arch in arch_list ]
 
@@ -402,4 +418,18 @@ debian10_security_sha256 = {
     package_prefix = "https://snapshot.debian.org/archive/debian-security/20191230T212302Z/",
     packages_gz_url = "https://snapshot.debian.org/archive/debian-security/20191230T212302Z/dists/buster/updates/main/binary-"+arch+"/Packages.gz",
     sha256 = debian10_security_sha256[arch],
+) for arch in arch_list ]
+
+debian10_adoptopenjdk_sha256 = {
+  "amd64": "d4d073d180504e058c00b6d2f236aaad87869faa8e8c75b4bb4b3ba1336e3a0f",
+  "arm64": "afa4ad7a7320ca895c2dddb70f03ac82b92c24c66c7c09e405c1e300eda59349",
+  "ppc64el": "7235e3c1042040bcf5e6e9af310156274d13db80f53bec658087f47ca0c2fe64",
+  "s390x": "5da3eb8eac499ece5e811bdf9387399083dfab4078a415164e43eb881b50eae4",
+}
+
+[ dpkg_src(
+    name = "debian10_adoptopenjdk_"+arch,
+    package_prefix = "https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/",
+    packages_gz_url = "https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/dists/buster/main/binary-"+arch+"/Packages.gz",
+    sha256 = debian_stretch_adoptopenjdk_sha256[arch],
 ) for arch in arch_list ]
