@@ -85,7 +85,7 @@ cacerts_java(
         "_debian9_"+arch,
         "java8",
         ["openjdk-8-jre-headless"],
-        "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java",
+        "/usr/lib/jvm/java-8-openjdk-{}/jre/bin/java".format(arch),
     ),
     (
         "_debian9_"+arch,
@@ -94,13 +94,13 @@ cacerts_java(
             "openjdk-8-jre-headless",
             "openjdk-8-jdk-headless",
         ],
-        "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java",
+        "/usr/lib/jvm/java-8-openjdk-{}/jre/bin/java".format(arch),
     ),
     (
         "_debian9_"+arch,
         "java11",
         ["openjdk-11-jre-headless"],
-        "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+        "/usr/lib/jvm/java-11-openjdk-{}/bin/java".format(arch),
     ),
     (
         "_debian9_"+arch,
@@ -109,13 +109,13 @@ cacerts_java(
             "openjdk-11-jre-headless",
             "openjdk-11-jdk-headless",
         ],
-        "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+        "/usr/lib/jvm/java-11-openjdk-{}/bin/java".format(arch),
     ),
     (
         "_debian10_"+arch,
         "java11",
         ["openjdk-11-jre-headless"],
-        "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+        "/usr/lib/jvm/java-11-openjdk-{}/bin/java".format(arch),
     ),
     (
         "_debian10_"+arch,
@@ -124,7 +124,55 @@ cacerts_java(
             "openjdk-11-jre-headless",
             "openjdk-11-jdk-headless",
         ],
-        "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+        "/usr/lib/jvm/java-11-openjdk-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian9_"+arch,
+        "adoptopenjdk8",
+        ["adoptopenjdk-8-hotspot-jre"],
+        "/usr/lib/jvm/adoptopenjdk-8-hotspot-jre-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian10_"+arch,
+        "adoptopenjdk8",
+        ["adoptopenjdk-8-hotspot-jre"],
+        "/usr/lib/jvm/adoptopenjdk-8-hotspot-jre-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian9_"+arch,
+        "adoptopenjdk8_debug",
+        ["adoptopenjdk-8-hotspot"],
+        "/usr/lib/jvm/adoptopenjdk-8-hotspot-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian10_"+arch,
+        "adoptopenjdk8_debug",
+        ["adoptopenjdk-8-hotspot"],
+        "/usr/lib/jvm/adoptopenjdk-8-hotspot-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian9_"+arch,
+        "adoptopenjdk11",
+        ["adoptopenjdk-11-hotspot-jre"],
+        "/usr/lib/jvm/adoptopenjdk-11-hotspot-jre-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian10_"+arch,
+        "adoptopenjdk11",
+        ["adoptopenjdk-11-hotspot-jre"],
+        "/usr/lib/jvm/adoptopenjdk-11-hotspot-jre-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian9_"+arch,
+        "adoptopenjdk11_debug",
+        ["adoptopenjdk-11-hotspot"],
+        "/usr/lib/jvm/adoptopenjdk-11-hotspot-{}/bin/java".format(arch),
+    ),
+    (
+        "_debian10_"+arch,
+        "adoptopenjdk11_debug",
+        ["adoptopenjdk-11-hotspot"],
+        "/usr/lib/jvm/adoptopenjdk-11-hotspot-{}/bin/java".format(arch),
     ),
 ]] for arch in [ "amd64", "arm64", "ppc64le", "s390x" ]]
 

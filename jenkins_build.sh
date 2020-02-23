@@ -14,7 +14,9 @@ for target in \
     base:static_debian9 base:static_debian10 \
     base:static-nonroot_debian9 base:static-nonroot_debian10 \
     cc:cc_debian9 cc:cc_debian10 \
-    java:java8_debian9 java:java11_debian10
+    java:java8_debian9 java:java11_debian10 \
+    java:adoptopenjdk8_debian9 java:adoptopenjdk8_debian10 \
+    java:adoptopenjdk11_debian9 java:adoptopenjdk11_debian10
 do (
     # Fully qualified image (to make our script more terse)
     fq_image=${registry}/${prefix}/${name_prefix}${target}
